@@ -22,7 +22,7 @@ namespace PboneLib.Core.CrossMod.Call
 
         public void RegisterHandler<T>() where T : IModCallHandler, new() => ModCallHandlersByType.Add(typeof(T), new T());
 
-        public void RegisterModCallHandlerToMessage()
+        public void MapModCallHandlersToMessages()
         {
             string[] messages;
 

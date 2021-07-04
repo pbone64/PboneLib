@@ -26,11 +26,11 @@ namespace PboneLib.Core.CrossMod.Ref
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    internal sealed class ModRefAttribute : Attribute
+    public sealed class ModRefAttribute : Attribute
     {
-        internal readonly string Mod;
+        public readonly string Mod;
 
-        internal ModRefAttribute(string mod)
+        public ModRefAttribute(string mod)
         {
             Mod = mod;
         }

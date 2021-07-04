@@ -9,8 +9,10 @@ namespace PboneLib.Core.CrossMod.Ref
 
         public Dictionary<string, IModCompatibility> ModCompatabilitiesByMod;
 
-        public void Load()
+        public ModRefManager(Mod mod)
         {
+            Mod = mod;
+
             ModCompatabilitiesByMod = new Dictionary<string, IModCompatibility>();
         }
 

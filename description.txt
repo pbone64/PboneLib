@@ -1,1 +1,7 @@
-pbone Lib is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+For Players: pbone Lib is a mod that some other mods need to work. If a mod says it depends on it, then download it.
+
+For Developers: pbone Lib is a library streamlining and abstracting many parts of mod development. It provides facilities for:
+- Easily adding Mod.Call messages and mod references - no more giant switch-case statements
+- Easily adding new ModPackets - no more giant switch-case statements
+- Streamlining the creation and usage of UI
+- Many stray methods I've used in mods

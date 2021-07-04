@@ -16,7 +16,7 @@ namespace PboneLib.Core.CrossMod
             Mod = mod;
 
             CallManager = new ModCallManager(mod);
-            RefManager = new ModRefManager();
+            RefManager = new ModRefManager(mod);
         }
 
         public T GetModCompatibility<T>(string mod) where T : IModCompatibility => (T)RefManager.GetModCompatibility(mod);

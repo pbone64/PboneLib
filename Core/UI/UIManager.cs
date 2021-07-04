@@ -68,38 +68,73 @@ namespace PboneLib.Core.UI
 
         public void CreateInterface(Guid identifier, string layerToInsertAt)
         {
-            UserInterfaces.Add(identifier, new UserInterfaceInfo(new UserInterface(), layerToInsertAt));
+            if (!Main.dedServ)
+                UserInterfaces.Add(identifier, new UserInterfaceInfo(new UserInterface(), layerToInsertAt));
         }
 
         public Guid QuickCreateInterface(string layerToInsertAt)
         {
-            Guid id = Guid.NewGuid();
-            CreateInterface(id, layerToInsertAt);
-            return id;
+            if (!Main.dedServ)
+            {
+                Guid id = Guid.NewGuid();
+                CreateInterface(id, layerToInsertAt);
+                return id;
+            }
+
+            return default;
         }
 
-        public void RegisterUI<T>(Guid interfaceId, string name, string layer) where T : UIState, new()
+        public void RegisterUI<T>(Guid interfaceId) where T : UIState, new()
         {
-            T t = new T();
-            t.Activate();
-            UIStatesToInterfaceIds.Add(t, interfaceId);
+            if (!Main.dedServ)
+            {
+                T t = new T();
+                t.Activate();
+                UIStatesToInterfaceIds.Add(t, interfaceId);
+            }
         }
 
-        public void OpenUI<T>()
+        public void OpenUI<T>() where T : UIState
         {
-            KeyValuePair<UIState, Guid> uiAndInterfaceId = UIStatesToInterfaceIds.First(kvp => kvp.Key.GetType() == typeof(T));
-            UserInterfaces[uiAndInterfaceId.Value].UserInterface.SetState(uiAndInterfaceId.Key);
+            if (!Main.dedServ)
+            {
+                KeyValuePair<UIState, Guid> uiAndInterfaceId = GetUIStateAndId<T>();
+                UserInterfaces[uiAndInterfaceId.Value].UserInterface.SetState(uiAndInterfaceId.Key);
+            }
         }
 
-        public void CloseUI<T>()
+        public void CloseUI<T>() where T : UIState
         {
-            KeyValuePair<UIState, Guid> uiAndInterfaceId = UIStatesToInterfaceIds.First(kvp => kvp.Key.GetType() == typeof(T));
-            UserInterfaces[uiAndInterfaceId.Value].UserInterface.SetState(null);
+            if (!Main.dedServ)
+            {
+                KeyValuePair<UIState, Guid> uiAndInterfaceId = GetUIStateAndId<T>();
+                CloseInterface(uiAndInterfaceId.Value);
+            }
         }
 
         public void CloseInterface(Guid interfaceId)
         {
-            UserInterfaces[interfaceId].UserInterface.SetState(null);
+            if (!Main.dedServ)
+            {
+                UserInterfaces[interfaceId].UserInterface.SetState(null);
+            }
         }
+
+        public void ToggleUI<T>() where T : UIState
+        {
+            if (!Main.dedServ)
+            {
+                KeyValuePair<UIState, Guid> uiAndInterfaceId = GetUIStateAndId<T>();
+                UserInterface userInterface = UserInterfaces[uiAndInterfaceId.Value].UserInterface;
+
+                if (userInterface.CurrentState == null)
+                    OpenUI<T>();
+                else
+                    CloseUI<T>();
+            }
+        }
+
+        public KeyValuePair<UIState, Guid> GetUIStateAndId<T>() where T : UIState => UIStatesToInterfaceIds.First(kvp => kvp.Key.GetType() == typeof(T));
+        public T GetUIState<T>() where T : UIState => GetUIStateAndId<T>().Key as T;
     }
 }

@@ -1,3 +1,7 @@
 displayName = pbone Lib
 author = pbone
 version = 0.1
+hideCode = false
+includePDB = true
+hideResources = false
+includeSource = true

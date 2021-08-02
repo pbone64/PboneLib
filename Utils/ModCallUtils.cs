@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PboneLib.Core.Utils
+namespace PboneLib.Utils
 {
     public static class ModCallHelper
     {

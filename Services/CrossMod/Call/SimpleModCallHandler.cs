@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PboneLib.Core.CrossMod.Call
+namespace PboneLib.Services.CrossMod.Call
 {
     public abstract class SimpleModCallHandler : IModCallHandler
     {

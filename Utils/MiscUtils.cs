@@ -4,7 +4,7 @@ using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace PboneLib.Core.Utils
+namespace PboneLib.Utils
 {
     public static class MiscUtils
     {

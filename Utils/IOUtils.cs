@@ -2,7 +2,7 @@
 using System.IO;
 using Terraria;
 
-namespace PboneLib.Core.Utils
+namespace PboneLib.Utils
 {
     public static class IOUtils
     {

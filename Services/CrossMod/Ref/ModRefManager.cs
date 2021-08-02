@@ -1,24 +1,29 @@
 ﻿using System.Collections.Generic;
 using Terraria.ModLoader;
 
-namespace PboneLib.Core.CrossMod.Ref
+namespace PboneLib.Services.CrossMod.Ref
 {
     public class ModRefManager
     {
-        public Mod Mod;
-
         public Dictionary<string, IModCompatibility> ModCompatabilitiesByMod;
 
-        public ModRefManager(Mod mod)
+        public ModRefManager()
         {
-            Mod = mod;
-
             ModCompatabilitiesByMod = new Dictionary<string, IModCompatibility>();
         }
 
         public IModCompatibility GetModCompatibility(string mod) => ModCompatabilitiesByMod[mod];
         public Mod GetMod(string mod) => GetModCompatibility(mod).GetMod();
         public bool IsModLoaded(string mod) => GetModCompatibility(mod).IsLoaded();
+
+        public void Load()
+        {
+            foreach (KeyValuePair<string, IModCompatibility> kvp in ModCompatabilitiesByMod)
+            {
+                if (kvp.Value.IsLoaded())
+                    kvp.Value.Load();
+            }
+        }
 
         public void RegisterCompatibility<T>() where T : IModCompatibility, new()
         {

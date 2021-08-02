@@ -10,4 +10,12 @@
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Tomlet">
+      <HintPath>lib\Tomlet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

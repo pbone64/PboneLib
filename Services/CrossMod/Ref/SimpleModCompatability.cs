@@ -2,7 +2,7 @@
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace PboneLib.Core.CrossMod.Ref
+namespace PboneLib.Services.CrossMod.Ref
 {
     public abstract class SimpleModCompatibility : IModCompatibility
     {
@@ -19,6 +19,8 @@ namespace PboneLib.Core.CrossMod.Ref
             Mod = ModLoader.GetMod(attribute.Mod);
             ModName = attribute.Mod;
         }
+
+        public virtual void Load() { }
 
         public Mod GetMod() => Mod;
         public bool IsLoaded() => IsModLoaded;

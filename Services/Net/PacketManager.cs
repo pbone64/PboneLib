@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria.ModLoader;
 
-namespace PboneLib.Core.Net
+namespace PboneLib.Services.Net
 {
     public class PacketManager
     {
@@ -15,7 +14,6 @@ namespace PboneLib.Core.Net
         public PacketManager(Mod mod)
         {
             Mod = mod;
-
             PacketIdsToPacketHandlers = new Dictionary<byte, IPacketHandler>();
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace PboneLib.Core.Net
+namespace PboneLib.Services.Net
 {
     public interface IPacketHandler
     {

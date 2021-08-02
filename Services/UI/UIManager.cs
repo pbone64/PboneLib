@@ -6,7 +6,7 @@ using System.Linq;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-namespace PboneLib.Core.UI
+namespace PboneLib.Services.UI
 {
     public class UIManager
     {

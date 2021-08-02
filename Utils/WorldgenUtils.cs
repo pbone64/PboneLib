@@ -2,7 +2,7 @@
 using Terraria.Audio;
 using Terraria.ID;
 
-namespace PboneLib.Core.Utils
+namespace PboneLib.Utils
 {
     public static class WorldgenUtils
     {

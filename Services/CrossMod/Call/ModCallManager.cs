@@ -1,39 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Terraria.ModLoader;
 
-namespace PboneLib.Core.CrossMod.Call
+namespace PboneLib.Services.CrossMod.Call
 {
     public class ModCallManager
     {
-        public Mod Mod;
-
         public Dictionary<Type, IModCallHandler> ModCallHandlersByType;
         public Dictionary<string, Type> ModCallHandlerTypesByMessage;
 
-        public ModCallManager(Mod mod)
+        public ModCallManager()
         {
-            Mod = mod;
-
             ModCallHandlersByType = new Dictionary<Type, IModCallHandler>();
             ModCallHandlerTypesByMessage = new Dictionary<string, Type>();
         }
 
-        public void RegisterHandler<T>() where T : IModCallHandler, new() => ModCallHandlersByType.Add(typeof(T), new T());
-
-        public void MapModCallHandlersToMessages()
+        public void RegisterHandler<T>() where T : IModCallHandler, new()
         {
-            string[] messages;
+            T handler = new T();
+            ModCallHandlersByType.Add(typeof(T), handler);
 
-            foreach (KeyValuePair<Type, IModCallHandler> handler in ModCallHandlersByType)
+            string[] messages = handler.GetMessagesICanHandle();
+
+            foreach (string s in messages)
             {
-                messages = handler.Value.GetMessagesICanHandle();
-
-                foreach (string s in messages)
-                {
-                    ModCallHandlerTypesByMessage.Add(s, handler.Key);
-                }
+                ModCallHandlerTypesByMessage.Add(s, typeof(T));
             }
         }
 
@@ -48,9 +39,9 @@ namespace PboneLib.Core.CrossMod.Call
 
         public void ParseArgs(object[] args, out string message, out List<object> parsedArgs)
         {
-            if (!(args[0] is string s))
+            if (args[0] is not string s)
             {
-                throw new ArgumentException("The first parameter of Mod.Call must be a string for all " + Mod.Name + " calls.");
+                throw new ArgumentException("The first parameter of Mod.Call must be a string for all PboneLib powered calls.");
             }
             else
             {

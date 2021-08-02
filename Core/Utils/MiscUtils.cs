@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -12,14 +13,14 @@ namespace PboneLib.Core.Utils
             if (Main.netMode == NetmodeID.SinglePlayer)
                 Main.NewText(text, color);
             else
-                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text.ToString()), color);
+                ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral(text.ToString()), color);
         }
 
         public static bool AnyBoss()
         {
             for (int i = 0; i < Main.maxNPCs; i++)
             {
-                if (Main.npc[i].active && (Main.npc[i].boss || NPCID.Sets.TechnicallyABoss[Main.npc[i].type]))
+                if (Main.npc[i].active && (Main.npc[i].boss || NPCID.Sets.ShouldBeCountedAsBoss[Main.npc[i].type]))
                 {
                     return true;
                 }

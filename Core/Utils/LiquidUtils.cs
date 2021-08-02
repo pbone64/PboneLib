@@ -1,5 +1,5 @@
-﻿using PboneLib.ID;
-using Terraria;
+﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 
 namespace PboneLib.Core.Utils
@@ -10,28 +10,12 @@ namespace PboneLib.Core.Utils
         {
             Tile tile = Framing.GetTileSafely(x, y);
 
-            if (tile.liquid == 0 || tile.liquidType() == type)
+            if (tile.LiquidAmount == 0 || tile.LiquidType == type)
             {
-                Main.PlaySound(SoundID.Splash, x, y);
-                tile.liquidType(type);
-                tile.liquid = byte.MaxValue;
+                SoundEngine.PlaySound(SoundID.Splash, x, y);
+                tile.LiquidType = type;
+                tile.LiquidAmount = byte.MaxValue;
                 WorldGen.SquareTileFrame(x, y);
-
-                switch (type)
-                {
-                    case LiquidID.Honey:
-                        tile.lava(false);
-                        tile.honey(true);
-                        break;
-                    case LiquidID.Lava:
-                        tile.lava(true);
-                        tile.honey(false);
-                        break;
-                    case LiquidID.Water:
-                        tile.lava(false);
-                        tile.honey(false);
-                        break;
-                }
 
                 if (Main.netMode == NetmodeID.MultiplayerClient)
                     NetMessage.sendWater(x, y);
@@ -44,30 +28,28 @@ namespace PboneLib.Core.Utils
 
         public static bool DrainLiquid(int x, int y, byte type)
         {
-            int targettedLiquid = Main.tile[x, y].liquidType();
+            int targettedLiquid = Main.tile[x, y].LiquidAmount;
             int nearbyLiquid = 0;
             for (int i = x - 1; i <= x + 1; i++)
             {
                 for (int j = y - 1; j <= y + 1; j++)
                 {
-                    if (Main.tile[i, j].liquidType() == targettedLiquid)
-                        nearbyLiquid += Main.tile[i, j].liquid;
+                    if (Main.tile[i, j].LiquidType == targettedLiquid)
+                        nearbyLiquid += Main.tile[i, j].LiquidAmount;
                 }
             }
 
-            if (Main.tile[x, y].liquid <= 0)
+            if (Main.tile[x, y].LiquidAmount <= 0)
                 return false;
 
-            int liquidType = Main.tile[x, y].liquidType();
-            int liquidAmount = Main.tile[x, y].liquid;
+            int liquidType = Main.tile[x, y].LiquidType;
+            int liquidAmount = Main.tile[x, y].LiquidAmount;
 
             if (liquidType != type)
                 return false;
 
-            Main.tile[x, y].liquid = 0;
-
-            Main.tile[x, y].lava(lava: false);
-            Main.tile[x, y].honey(honey: false);
+            Main.tile[x, y].LiquidAmount = 0;
+            Main.tile[x, y].LiquidType = 0;
 
             WorldGen.SquareTileFrame(x, y, resetFrame: false);
 
@@ -80,20 +62,17 @@ namespace PboneLib.Core.Utils
             {
                 for (int l = y - 1; l <= y + 1; l++)
                 {
-                    if (liquidAmount < 256 && Main.tile[k, l].liquidType() == targettedLiquid)
+                    if (liquidAmount < 256 && Main.tile[k, l].LiquidType == targettedLiquid)
                     {
-                        int removeAmount = Main.tile[k, l].liquid;
+                        int removeAmount = Main.tile[k, l].LiquidAmount;
                         if (removeAmount + liquidAmount > 255)
                             removeAmount = 255 - liquidAmount;
 
                         liquidAmount += removeAmount;
-                        Main.tile[k, l].liquid -= (byte)removeAmount;
-                        Main.tile[k, l].liquidType(liquidType);
-                        if (Main.tile[k, l].liquid == 0)
-                        {
-                            Main.tile[k, l].lava(lava: false);
-                            Main.tile[k, l].honey(honey: false);
-                        }
+                        Main.tile[k, l].LiquidAmount -= (byte)removeAmount;
+                        Main.tile[k, l].LiquidType = liquidType;
+                        if (Main.tile[k, l].LiquidAmount == 0)
+                            Main.tile[k, l].LiquidType = 0;
 
                         WorldGen.SquareTileFrame(k, l, resetFrame: false);
                         if (Main.netMode == NetmodeID.MultiplayerClient)

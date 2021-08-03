@@ -1,4 +1,4 @@
-﻿namespace PboneLib.BetterContent
+﻿namespace PboneLib.CustomLoading
 {
     public interface IContentLoadCondition
     {

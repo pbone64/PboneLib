@@ -1,7 +1,7 @@
 ﻿using PboneLib.Utils;
 using System;
 
-namespace PboneLib.BetterContent.Conditions
+namespace PboneLib.CustomLoading.Conditions
 {
     public static class TryToLoad
     {

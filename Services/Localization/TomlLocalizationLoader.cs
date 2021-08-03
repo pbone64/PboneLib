@@ -1,13 +1,4 @@
-﻿using ReLogic.Content;
-using ReLogic.Content.Readers;
-using ReLogic.Utilities;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using Terraria;
-using Terraria.ModLoader;
-using Tomlet;
-using Tomlet.Models;
+﻿using Terraria.ModLoader;
 
 namespace PboneLib.Core.Localization
 {

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using PboneLib.CustomLoading.Implementations;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 
 namespace PboneLib.Services.Textures
 {
-    public abstract class ModTextureManager : ModSystem
+    public abstract class ModTextureManager : PSystem
     {
         public Texture2D this[string name] { get => (GetAsset(name) as Asset<Texture2D>).Value; }
 

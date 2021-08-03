@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria.ModLoader;
 using Terraria.UI;
+using PboneLib.CustomLoading.Implementations;
 
 namespace PboneLib.Services.UI
 {
-    public abstract class UIManager : ModSystem
+    public abstract class UIManager : PSystem
     {
         public class UserInterfaceInfo
         {

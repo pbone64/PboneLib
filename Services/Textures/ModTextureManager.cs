@@ -7,6 +7,8 @@ namespace PboneLib.Services.Textures
 {
     public abstract class ModTextureManager : ModSystem
     {
+        public IAsset this[string name] { get => GetAsset(name); }
+
         public Dictionary<string, IAsset> CachedAssets;
 
         public abstract Dictionary<string, string> GetImmediateTextures();

@@ -1,11 +1,11 @@
 ﻿using Terraria.ModLoader;
 
-namespace PboneLib.BetterContent
+namespace PboneLib.CustomLoading
 {
     public struct CompoundLoadable
     {
         public ILoadable AsLoadable => Content as ILoadable;
-        public IBetterLoadable AsBetterLoadable => Content as IBetterLoadable;
+        public ICustomLoadable AsBetterLoadable => Content as ICustomLoadable;
 
         private object Content;
 

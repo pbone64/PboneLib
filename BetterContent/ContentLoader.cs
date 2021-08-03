@@ -1,6 +1,7 @@
 ﻿using PboneLib.BetterContent.Conditions;
 using System;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
 namespace PboneLib.BetterContent
 {
@@ -25,7 +26,8 @@ namespace PboneLib.BetterContent
             {
                 TryToLoadConditions.AddRange(new List<ITryToLoadCondition> {
                     TryToLoad.IsNotAbstract(),
-                    TryToLoad.ImplementsProperInterfaces()
+                    TryToLoad.ImplementsInterface<ILoadable>(),
+                    TryToLoad.ImplementsInterface<IBetterLoadable>()
                 });
 
                 LoadConditions.AddRange(new List<IContentLoadCondition> {

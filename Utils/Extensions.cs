@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Terraria;
+using Terraria.ID;
 
 namespace PboneLib.Utils
 {

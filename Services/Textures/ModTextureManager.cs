@@ -7,7 +7,7 @@ namespace PboneLib.Services.Textures
 {
     public abstract class ModTextureManager : ModSystem
     {
-        public Texture2D this[string name] { get => (GetAsset(name) as GetAsset<Texture2D>).Value; }
+        public Texture2D this[string name] { get => (GetAsset(name) as Asset<Texture2D>).Value; }
 
         public Dictionary<string, IAsset> CachedAssets;
 

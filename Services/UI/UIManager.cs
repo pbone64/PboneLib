@@ -8,7 +8,7 @@ using Terraria.UI;
 
 namespace PboneLib.Services.UI
 {
-    public class UIManager
+    public abstract class UIManager : ModSystem
     {
         public class UserInterfaceInfo
         {
@@ -22,22 +22,26 @@ namespace PboneLib.Services.UI
             }
         }
         
-        public Mod Mod;
-
         public Dictionary<Guid, UserInterfaceInfo> UserInterfaces;
         public Dictionary<UIState, Guid> UIStatesToInterfaceIds;
 
         public GameTime LastUpdateUIGameTime;
 
-        public UIManager(Mod mod)
+        public UIManager()
         {
-            Mod = mod;
-
             UserInterfaces = new Dictionary<Guid, UserInterfaceInfo>();
             UIStatesToInterfaceIds = new Dictionary<UIState, Guid>();
         }
 
-        public void UpdateUI(GameTime gameTime)
+        public override void Load()
+        {
+            base.Load();
+            RegisterUI();
+        }
+
+        public abstract void RegisterUI();
+
+        public override void UpdateUI(GameTime gameTime)
         {
             foreach (KeyValuePair<Guid, UserInterfaceInfo> kvp in UserInterfaces)
             {
@@ -48,7 +52,7 @@ namespace PboneLib.Services.UI
             LastUpdateUIGameTime = gameTime;
         }
 
-        public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             foreach (KeyValuePair<Guid, UserInterfaceInfo> kvp in UserInterfaces)
             {

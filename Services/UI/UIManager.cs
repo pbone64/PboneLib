@@ -36,7 +36,9 @@ namespace PboneLib.Services.UI
         public override void Load()
         {
             base.Load();
-            RegisterUI();
+
+            if (!Main.dedServ)
+                RegisterUI();
         }
 
         public abstract void RegisterUI();

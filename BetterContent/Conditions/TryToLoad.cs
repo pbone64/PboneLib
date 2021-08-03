@@ -1,6 +1,5 @@
 ﻿using PboneLib.Utils;
 using System;
-using Terraria.ModLoader;
 
 namespace PboneLib.BetterContent.Conditions
 {
@@ -12,10 +11,10 @@ namespace PboneLib.BetterContent.Conditions
             public bool Satisfies(Type type) => !type.IsAbstract;
         }
 
-        public static ITryToLoadCondition ImplementsProperInterfaces() => new ImplementsProperInterfacesCondition();
-        public class ImplementsProperInterfacesCondition : ITryToLoadCondition
+        public static ITryToLoadCondition ImplementsInterface<T>() => new ImplementsInterfaceCondition<T>();
+        public class ImplementsInterfaceCondition<T> : ITryToLoadCondition
         {
-            public bool Satisfies(Type type) => type.Implements<ILoadable>() && type.Implements<IBetterLoadable>();
+            public bool Satisfies(Type type) => type.Implements<T>();
         }
     }
 }

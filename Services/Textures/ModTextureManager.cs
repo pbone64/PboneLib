@@ -30,10 +30,7 @@ namespace PboneLib.Services.Textures
 
             foreach (KeyValuePair<string, IAsset> cache in CachedAssets)
             {
-                if (cache.Value is Asset<Texture2D> asset)
-                {
-                    cache.Value.Dispose();
-                }
+                cache.Value.Dispose();
             }
 
             CachedAssets.Clear();

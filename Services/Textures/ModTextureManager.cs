@@ -24,6 +24,21 @@ namespace PboneLib.Services.Textures
             }
         }
 
+        public override void Unload()
+        {
+            base.Unload();
+
+            foreach (KeyValuePair<string, IAsset> cache in CachedAssets)
+            {
+                if (cache.Value is Asset<Texture2D> asset)
+                {
+                    cache.Value.Dispose();
+                }
+            }
+
+            CachedAssets.Clear();
+        }
+
         public IAsset GetAsset(string name)
         {
             if (CachedAssets.TryGetValue(name, out IAsset asset))

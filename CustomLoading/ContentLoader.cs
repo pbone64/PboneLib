@@ -1,4 +1,4 @@
-﻿using PboneLib.BetterContent.Conditions;
+﻿using PboneLib.CustomLoading.Conditions;
 using System;
 using System.Collections.Generic;
 using Terraria.ModLoader;

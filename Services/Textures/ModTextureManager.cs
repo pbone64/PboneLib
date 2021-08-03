@@ -36,13 +36,13 @@ namespace PboneLib.Services.Textures
             CachedAssets.Clear();
         }
 
-        public IAsset GetAsset(string name)
+        public Asset<Texture2D> GetAsset(string name)
         {
             if (CachedAssets.TryGetValue(name, out IAsset asset))
-                return asset;
+                return asset as Asset<Texture2D>;
 
             CachedAssets.Add(name, ModContent.Request<Texture2D>(GetOtherTextures()[name]));
-            return CachedAssets[name];
+            return CachedAssets[name] as Asset<Texture2D>;
         }
     }
 }

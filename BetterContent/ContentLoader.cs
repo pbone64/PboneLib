@@ -50,7 +50,7 @@ namespace PboneLib.BetterContent
             Settings = settings;
         }
 
-        public void SupplyContent(Type[] types)
+        public void LoadFromTypes(Type[] types)
         {
             foreach (Type type in types)
             {

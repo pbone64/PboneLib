@@ -20,6 +20,7 @@ namespace PboneLib.CustomLoading
                 loader.Load(Mod);
         }
 
-        public void Add<T>() where T : ICustomLoader, new() => Loaders.Add(new T());
+        public void Add(ICustomLoader loader) => Loaders.Add(loader);
+        public void Add<T>() where T : ICustomLoader, new() => Add(new T());
     }
 }

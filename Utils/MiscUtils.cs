@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Globalization;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -54,6 +55,19 @@ namespace PboneLib.Utils
                 return (player.position.Y + player.height) / 16f + Player.tileRangeY + item.tileBoost - 2f >= Player.tileTargetY;
 
             return false;
+        }
+
+        public static bool IsValidCulture(string identifier)
+        {
+            try
+            {
+                CultureInfo info = CultureInfo.GetCultureInfo(identifier);
+                return true;
+            }
+            catch (CultureNotFoundException)
+            {
+                return false;
+            }
         }
     }
 }

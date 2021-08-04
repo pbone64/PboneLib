@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using PboneLib.CustomLoading.Implementations;
+using PboneLib.CustomLoading.Content.Implementations;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria.ModLoader;

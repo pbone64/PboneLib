@@ -2,7 +2,7 @@
 
 namespace PboneLib.CustomLoading.Content.Implementations
 {
-    public class PTile : ModTile, ICustomLoadable
+    public abstract class PTile : ModTile, ICustomLoadable
     {
         public virtual bool LoadCondition() => true;
     }

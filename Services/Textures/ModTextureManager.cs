@@ -19,6 +19,7 @@ namespace PboneLib.Services.Textures
         {
             base.Load();
 
+            CachedAssets = new Dictionary<string, IAsset>();
             foreach (KeyValuePair<string, string> s in GetImmediateTextures())
             {
                 CachedAssets.Add(s.Key, ModContent.Request<Texture2D>(s.Value, AssetRequestMode.ImmediateLoad));

@@ -6,9 +6,9 @@ namespace PboneLib.Services.CrossMod.Ref
 {
     public abstract class SimpleModCompatibility : IModCompatibility
     {
-        private bool IsModLoaded => Mod != null;
-        private readonly Mod Mod;
-        private readonly string ModName;
+        public bool IsModLoaded => Mod != null;
+        public readonly Mod Mod;
+        public readonly string ModName;
 
         protected SimpleModCompatibility()
         {
@@ -16,7 +16,8 @@ namespace PboneLib.Services.CrossMod.Ref
             if (attribute == null)
                 return;
 
-            Mod = ModLoader.GetMod(attribute.Mod);
+            ModLoader.TryGetMod(attribute.Mod, out Mod mod);
+            Mod = mod;
             ModName = attribute.Mod;
         }
 

@@ -17,9 +17,7 @@ namespace PboneLib.CustomLoading.Content
                     TryToLoad.DoesNotContainGenericParameters(),
                     TryToLoad.HasZeroParameterConstructor(),
                     TryToLoad.IsNotSubclassOf<Mod>(),
-                    TryToLoad.IsNotSubclassOf<ModConfig>(),
-                    TryToLoad.ImplementsInterface<ILoadable>(),
-                    TryToLoad.ImplementsInterface<ICustomLoadable>()
+                    TryToLoad.IsNotSubclassOf<ModConfig>()
                 };
 
             public static List<ITryToLoadCondition> PresetTryToLoadConfigConditions = new List<ITryToLoadCondition> {

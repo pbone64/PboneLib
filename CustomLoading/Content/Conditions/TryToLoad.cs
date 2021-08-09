@@ -34,5 +34,11 @@ namespace PboneLib.CustomLoading.Content.Conditions
         {
             public bool Satisfies(Type type) => type.Implements<T>();
         }
+
+        public static ITryToLoadCondition IsSubclassOf<T>() => new IsSubclassOfCondition<T>();
+        public class IsSubclassOfCondition<T> : ITryToLoadCondition
+        {
+            public bool Satisfies(Type type) => type.IsSubclassOf(typeof(T));
+        }
     }
 }

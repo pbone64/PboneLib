@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 namespace PboneLib.CustomLoading.Content
 {
@@ -10,6 +11,27 @@ namespace PboneLib.CustomLoading.Content
     {
         public struct ContentLoaderSettings
         {
+            #region Presets
+            public static List<ITryToLoadCondition> PresetNormalTryToLoadConditions = new List<ITryToLoadCondition> {
+                    TryToLoad.IsNotAbstract(),
+                    TryToLoad.DoesNotContainGenericParameters(),
+                    TryToLoad.HasZeroParameterConstructor(),
+                    TryToLoad.IsNotSubclassOf<Mod>(),
+                    TryToLoad.IsNotSubclassOf<ModConfig>(),
+                    TryToLoad.ImplementsInterface<ILoadable>(),
+                    TryToLoad.ImplementsInterface<ICustomLoadable>()
+                };
+
+            public static List<ITryToLoadCondition> PresetTryToLoadConfigConditions = new List<ITryToLoadCondition> {
+                    TryToLoad.IsNotAbstract(),
+                    TryToLoad.DoesNotContainGenericParameters(),
+                    TryToLoad.HasZeroParameterConstructor(),
+                    TryToLoad.IsSubclassOf<ModConfig>(),
+                    TryToLoad.ImplementsInterface<ILoadable>(),
+                    TryToLoad.ImplementsInterface<ICustomLoadable>()
+                };
+            #endregion
+
             public List<ITryToLoadCondition> TryToLoadConditions;
             public List<IContentLoadCondition> LoadConditions;
 
@@ -25,14 +47,7 @@ namespace PboneLib.CustomLoading.Content
 
             public void FillWithDefaultConditions()
             {
-                TryToLoadConditions.AddRange(new List<ITryToLoadCondition> {
-                    TryToLoad.IsNotAbstract(),
-                    TryToLoad.DoesNotContainGenericParameters(),
-                    TryToLoad.HasZeroParameterConstructor(),
-                    TryToLoad.IsNotType<Mod>(),
-                    TryToLoad.ImplementsInterface<ILoadable>(),
-                    TryToLoad.ImplementsInterface<ICustomLoadable>()
-                });
+                TryToLoadConditions.AddRange(PresetNormalTryToLoadConditions);
 
                 LoadConditions.AddRange(new List<IContentLoadCondition> {
                     ContentLoad.RespectLoad()

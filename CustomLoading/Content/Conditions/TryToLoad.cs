@@ -38,7 +38,13 @@ namespace PboneLib.CustomLoading.Content.Conditions
         public static ITryToLoadCondition IsSubclassOf<T>() => new IsSubclassOfCondition<T>();
         public class IsSubclassOfCondition<T> : ITryToLoadCondition
         {
-            public bool Satisfies(Type type) => type.IsSubclassOf(typeof(T));
+            public virtual bool Satisfies(Type type) => type.IsSubclassOf(typeof(T));
+        }
+
+        public static ITryToLoadCondition IsNotSubclassOf<T>() => new IsNotSubclassOfCondition<T>();
+        public class IsNotSubclassOfCondition<T> : IsSubclassOfCondition<T>
+        {
+            public override bool Satisfies(Type type) => !base.Satisfies(type);
         }
     }
 }

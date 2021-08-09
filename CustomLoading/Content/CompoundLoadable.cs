@@ -7,7 +7,7 @@ namespace PboneLib.CustomLoading.Content
         public ILoadable AsLoadable => Content as ILoadable;
         public ICustomLoadable AsBetterLoadable => Content as ICustomLoadable;
 
-        private readonly object Content;
+        public readonly object Content;
 
         public CompoundLoadable(object content)
         {

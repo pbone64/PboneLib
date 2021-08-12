@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using PboneLib.CustomLoading.Content.Implementations;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace PboneLib.Services.Textures
@@ -32,10 +34,15 @@ namespace PboneLib.Services.Textures
 
             foreach (KeyValuePair<string, IAsset> cache in CachedAssets)
             {
-                cache.Value.Dispose();
+                Main.QueueMainThreadAction(() => {
+                    cache.Value.Dispose();
+                });
             }
 
-            CachedAssets.Clear();
+            // This needs to bbe queued on the main thread so it happens _after_ the cache is disposed
+            Main.QueueMainThreadAction(() => {
+                CachedAssets.Clear();
+            });
         }
 
         public Asset<Texture2D> GetAsset(string name)

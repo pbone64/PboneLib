@@ -52,8 +52,7 @@ namespace PboneLib.CustomLoading.Localization
                     if (splitText.Length != 2)
                         return false;
 
-                    if (!MiscUtils.IsValidCulture(splitText[0])
-                     || !Settings.ExtensionsToParsers.ContainsKey(splitText[1]))
+                    if (!Settings.ExtensionsToParsers.ContainsKey(splitText[1]))
                         return false;
 
                     return true;

@@ -56,18 +56,5 @@ namespace PboneLib.Utils
 
             return false;
         }
-
-        public static bool IsValidCulture(string identifier)
-        {
-            try
-            {
-                CultureInfo info = CultureInfo.GetCultureInfo(identifier);
-                return true;
-            }
-            catch (CultureNotFoundException)
-            {
-                return false;
-            }
-        }
     }
 }

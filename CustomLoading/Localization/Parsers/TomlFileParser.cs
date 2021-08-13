@@ -14,7 +14,8 @@ namespace PboneLib.CustomLoading.Localization.Parsers
             Dictionary<string, ModTranslation> dictionary = new Dictionary<string, ModTranslation>();
             foreach (KeyValuePair<string, TomlValue> kvp in document.Entries)
             {
-                GetValues(kvp.Key, kvp.Value, out IDictionary<string, string> values);
+                Dictionary<string, string> values = new Dictionary<string, string>();
+                GetValues(kvp.Key, kvp.Value, ref values);
 
                 foreach (KeyValuePair<string, string> tr in values)
                 {
@@ -33,7 +34,7 @@ namespace PboneLib.CustomLoading.Localization.Parsers
             return dictionary;
         }
 
-        public void GetValues(string key, TomlValue toml, out IDictionary<string, string> values)
+        public void GetValues(string key, TomlValue toml, ref Dictionary<string, string> values)
         {
             if (toml is TomlTable table)
             {
@@ -42,15 +43,13 @@ namespace PboneLib.CustomLoading.Localization.Parsers
                 foreach (KeyValuePair<string, TomlValue> kvp in table.Entries)
                 {
                     // key + "." + kvp.Key is needed to the name of the table is added to the translations key
-                    GetValues(key + "." + kvp.Key, kvp.Value, out values);
+                    GetValues(key + "." + kvp.Key, kvp.Value, ref values);
                 }
 
                 return;
             }
 
-            values = new Dictionary<string, string> {
-                [key] = toml.StringValue
-            };
+            values.Add(key, toml.StringValue);
         }
     }
 }

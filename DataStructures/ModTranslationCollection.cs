@@ -56,7 +56,6 @@ namespace PboneLib.DataStructures
                     }
                 }
 
-
                 Translations[kvp.Key] = translation;
             }
         }

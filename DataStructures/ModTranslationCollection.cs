@@ -47,15 +47,15 @@ namespace PboneLib.DataStructures
                 // For each translation in the equivelent ModTranslation's translations...
                 foreach (KeyValuePair<int, string> tr in newTranslations)
                 {
-                    // Add it to the current translation
-                    translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
+                    // NOTE: ModTranslations ALWAYS have an en-US translations, which by default is the key
+                    // This check makes sure you aren't setting the en-US translation to a fallback value
+                    if (tr.Value != null && tr.Value != translation.Key)
+                    {
+                        // Add it to the current translation
+                        translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
+                    }
                 }
 
-                // Dirty hack for an issue I can't find a better solution for
-                // TODO Ultimate: Fixme!
-                Dictionary<int, string> translations = ModTranslation_translations.GetValue(translation) as Dictionary<int, string>;
-                if (translations.Any(t => t.Value.EndsWith(kvp.Key)))
-                    continue;
 
                 Translations[kvp.Key] = translation;
             }

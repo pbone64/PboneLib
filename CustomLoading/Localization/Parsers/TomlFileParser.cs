@@ -38,8 +38,6 @@ namespace PboneLib.CustomLoading.Localization.Parsers
         {
             if (toml is TomlTable table)
             {
-                values = new Dictionary<string, string>();
-
                 foreach (KeyValuePair<string, TomlValue> kvp in table.Entries)
                 {
                     // key + "." + kvp.Key is needed to the name of the table is added to the translations key

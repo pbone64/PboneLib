@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Terraria.ModLoader;
 
@@ -41,7 +42,6 @@ namespace PboneLib.DataStructures
                 // Get the translation that currently exists in this collection
                 ModTranslation translation = GetOrCreateTranslation(kvp.Key, true);
 
-                Dictionary<int, string> existingTranslations = ModTranslation_translations.GetValue(translation) as Dictionary<int, string>;
                 Dictionary<int, string> newTranslations = ModTranslation_translations.GetValue(kvp.Value) as Dictionary<int, string>;
 
                 // For each translation in the equivelent ModTranslation's translations...
@@ -50,6 +50,12 @@ namespace PboneLib.DataStructures
                     // Add it to the current translation
                     translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
                 }
+
+                // Dirty hack for an issue I can't find a better solution for
+                // TODO Ultimate: Fixme!
+                Dictionary<int, string> translations = ModTranslation_translations.GetValue(translation) as Dictionary<int, string>;
+                if (translations.Any(t => t.Value.EndsWith(kvp.Key)))
+                    continue;
 
                 Translations[kvp.Key] = translation;
             }

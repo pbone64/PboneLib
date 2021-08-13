@@ -41,7 +41,8 @@ namespace PboneLib.CustomLoading.Localization.Parsers
 
                 foreach (KeyValuePair<string, TomlValue> kvp in table.Entries)
                 {
-                    GetValues(kvp.Key, kvp.Value, out values);
+                    // key + "." + kvp.Key is needed to the name of the table is added to the translations key
+                    GetValues(key + "." + kvp.Key, kvp.Value, out values);
                 }
 
                 return;

@@ -53,11 +53,8 @@ namespace PboneLib.DataStructures
                         continue;
 
                     // Add it to the current translation
-                    translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
-                    
+                    Translations[kvp.Key].AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
                 }
-
-                Translations[kvp.Key] = translation;
             }
         }
     }

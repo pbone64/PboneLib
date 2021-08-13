@@ -38,14 +38,17 @@ namespace PboneLib.DataStructures
         {
             foreach (KeyValuePair<string, ModTranslation> kvp in other)
             {
+                // Get the translation that currently exists in this collection
                 ModTranslation translation = GetOrCreateTranslation(kvp.Key, true);
 
                 Dictionary<int, string> existingTranslations = ModTranslation_translations.GetValue(translation) as Dictionary<int, string>;
                 Dictionary<int, string> newTranslations = ModTranslation_translations.GetValue(kvp.Value) as Dictionary<int, string>;
-                foreach (KeyValuePair<int, string> tr in newTranslations) // For each translation the merged collection's ModTranslation has
+
+                // For each translation in the equivelent ModTranslation's translations...
+                foreach (KeyValuePair<int, string> tr in newTranslations)
                 {
-                    // "Merge" the translations - assume you want to overwrite
-                    translation.AddTranslation(kvp.Key, kvp.Value.GetTranslation(tr.Key)); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
+                    // Add it to the current translation
+                    translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
                 }
 
                 Translations[kvp.Key] = translation;

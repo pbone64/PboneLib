@@ -42,13 +42,10 @@ namespace PboneLib.DataStructures
 
                 Dictionary<int, string> existingTranslations = ModTranslation_translations.GetValue(translation) as Dictionary<int, string>;
                 Dictionary<int, string> newTranslations = ModTranslation_translations.GetValue(kvp.Value) as Dictionary<int, string>;
-                foreach (KeyValuePair<int, string> tr in newTranslations)
+                foreach (KeyValuePair<int, string> tr in newTranslations) // For each translation the merged collection's ModTranslation has
                 {
-                    // For each translation the merged collection's ModTranslation has
-                    if (existingTranslations.ContainsKey(tr.Key)) // If the translation already has the specified translations
-                    {
-                        translation.AddTranslation(kvp.Key, kvp.Value.GetTranslation(tr.Key)); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
-                    }
+                    // "Merge" the translations - assume you want to overwrite
+                    translation.AddTranslation(kvp.Key, kvp.Value.GetTranslation(tr.Key)); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
                 }
 
                 Translations[kvp.Key] = translation;

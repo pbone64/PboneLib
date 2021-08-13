@@ -47,7 +47,7 @@ namespace PboneLib.DataStructures
                     // For each translation the merged collection's ModTranslation has
                     if (existingTranslations.ContainsKey(tr.Key)) // If the translation already has the specified translations
                     {
-                        translation.AddTranslation(kvp.Key, kvp.Value.GetTranslation(kvp.Key)); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
+                        translation.AddTranslation(kvp.Key, kvp.Value.GetTranslation(tr.Key)); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
                     }
                 }
 

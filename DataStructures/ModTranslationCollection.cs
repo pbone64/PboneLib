@@ -49,11 +49,12 @@ namespace PboneLib.DataStructures
                 {
                     // NOTE: ModTranslations ALWAYS have an en-US translations, which by default is the key
                     // This check makes sure you aren't setting the en-US translation to a fallback value
-                    if (tr.Value != null && !tr.Value.EndsWith(translation.Key))
-                    {
-                        // Add it to the current translation
-                        translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
-                    }
+                    if (tr.Value == null || tr.Value.EndsWith(translation.Key))
+                        continue;
+
+                    // Add it to the current translation
+                    translation.AddTranslation(tr.Key, tr.Value); // Though it's called AddTranslation, it's basically an AddOrSetTranslation
+                    
                 }
 
                 Translations[kvp.Key] = translation;

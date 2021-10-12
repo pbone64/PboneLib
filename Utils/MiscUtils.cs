@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Globalization;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;

@@ -1,6 +1,5 @@
 ﻿using PboneLib.CustomLoading.Content;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
@@ -35,11 +34,5 @@ namespace PboneLib.Utils
         public static bool Implements<T>(this Type type) => type.GetInterfaces().Contains(typeof(T));
 
         public static void AddContent(this Mod mod, CompoundLoadable content) => mod.AddContent(content.AsLoadable);
-
-        public static Dictionary<string, TmodFile.FileEntry> GetAllFiles(this Mod mod)
-        {
-            TmodFile file = Mod_File.GetValue(mod) as TmodFile;
-            return TmodFile_files.GetValue(file) as Dictionary<string, TmodFile.FileEntry>;
-        }
     }
 }

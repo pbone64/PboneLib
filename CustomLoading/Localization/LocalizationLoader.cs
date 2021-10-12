@@ -1,13 +1,11 @@
 ﻿using MonoMod.Utils;
 using PboneLib.CustomLoading.Localization.Parsers;
 using PboneLib.DataStructures;
-using PboneLib.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Core;
 
 namespace PboneLib.CustomLoading.Localization
 {
@@ -45,10 +43,10 @@ namespace PboneLib.CustomLoading.Localization
 
         public void Load(Mod mod)
         {
-            IEnumerable<KeyValuePair<string, TmodFile.FileEntry>> localizationFiles = mod.GetAllFiles()
-                .Where(kvp => {
+            IEnumerable<string> localizationFiles = mod.GetFileNames()
+                .Where(file => {
                     // Format: en-US.extension
-                    string[] splitText = SplitFilePath(kvp.Key);
+                    string[] splitText = SplitFilePath(file);
                     if (splitText.Length != 2)
                         return false;
 
@@ -59,11 +57,11 @@ namespace PboneLib.CustomLoading.Localization
                 });
 
             ModTranslationCollection translations = new ModTranslationCollection();
-            foreach (KeyValuePair<string, TmodFile.FileEntry> kvp in localizationFiles)
+            foreach (string file in localizationFiles)
             {
-                using (Stream s = mod.GetFileStream(kvp.Key))
+                using (Stream s = mod.GetFileStream(file))
                 {
-                    string[] splitText = SplitFilePath(kvp.Key);
+                    string[] splitText = SplitFilePath(file);
                     string culture = splitText[0];
                     string ext = splitText[1];
 

@@ -3,7 +3,6 @@ author = pbone
 version = 0.1.1
 homepage = https://github.com/Pbone3/PboneLib
 hideCode = false
-includePDB = true
 hideResources = false
 includeSource = true
 dllReferences = Tomlet

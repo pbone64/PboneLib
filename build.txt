@@ -1,6 +1,6 @@
 displayName = pbone Lib
 author = pbone
-version = 0.1.2
+version = 0.1.3
 homepage = https://github.com/Pbone3/PboneLib
 hideCode = false
 hideResources = false

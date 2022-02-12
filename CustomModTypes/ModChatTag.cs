@@ -1,20 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using PboneLib.CustomLoading.Content;
 using System.Reflection;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
 namespace PboneLib.CustomModTypes
 {
-    public abstract class ModChatTag : ModType, ITagHandler
+    public abstract class ModChatTag : ModType, ITagHandler, ICustomLoadable
     {
-        private static MethodInfo ChatManager_Register = typeof(ChatManager).GetMethod("Register");
+        private static MethodInfo ChatManager_Register = typeof(ChatManager).GetMethod(nameof(ChatManager.Register));
+        public virtual bool LoadCondition() => true;
 
         public abstract string[] Names { get; }
+
         public abstract TextSnippet Parse(string text, Color baseColor = default, string options = null);
 
         public sealed override void SetupContent()
-        {
-            ChatManager_Register.MakeGenericMethod(GetType()).Invoke(null, Names);
+        {   
+            ChatManager_Register.MakeGenericMethod(GetType()).Invoke(null, new object[] { Names });
 
             base.SetupContent();
         }
@@ -25,3 +28,4 @@ namespace PboneLib.CustomModTypes
         }
     }
 }
+    

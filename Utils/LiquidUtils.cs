@@ -49,7 +49,7 @@ namespace PboneLib.Utils
                 return false;
 
             Main.tile[x, y].LiquidAmount = 0;
-            Main.tile[x, y].LiquidType = 0;
+            Main.tile[x, y].Get<LiquidData>().LiquidType = 0;
 
             WorldGen.SquareTileFrame(x, y, resetFrame: false);
 
@@ -70,9 +70,9 @@ namespace PboneLib.Utils
 
                         liquidAmount += removeAmount;
                         Main.tile[k, l].LiquidAmount -= (byte)removeAmount;
-                        Main.tile[k, l].LiquidType = liquidType;
+                        Main.tile[k, l].Get<LiquidData>().LiquidType = liquidType;
                         if (Main.tile[k, l].LiquidAmount == 0)
-                            Main.tile[k, l].LiquidType = 0;
+                            Main.tile[k, l].Get<LiquidData>().LiquidType = 0;
 
                         WorldGen.SquareTileFrame(k, l, resetFrame: false);
                         if (Main.netMode == NetmodeID.MultiplayerClient)

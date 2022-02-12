@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria.ModLoader;
 using Terraria.UI;
-using PboneLib.CustomLoading.Content.Implementations;
+using PboneLib.CustomLoading.Content.Implementations.Misc;
 
 namespace PboneLib.Services.UI
 {

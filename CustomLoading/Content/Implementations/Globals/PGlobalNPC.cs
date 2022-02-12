@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace PboneLib.CustomLoading.Content.Implementations
+namespace PboneLib.CustomLoading.Content.Implementations.Globals
 {
     public abstract class PGlobalNPC : GlobalNPC, ICustomLoadable
     {

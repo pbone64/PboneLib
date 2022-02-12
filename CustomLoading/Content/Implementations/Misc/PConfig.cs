@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader.Config;
 
-namespace PboneLib.CustomLoading.Content.Implementations
+namespace PboneLib.CustomLoading.Content.Implementations.Misc
 {
     public abstract class PConfig : ModConfig, ICustomLoadable
     {

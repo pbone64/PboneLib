@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using PboneLib.CustomLoading.Content.Implementations;
+using PboneLib.CustomLoading.Content.Implementations.Misc;
 using ReLogic.Content;
 using System.Collections.Generic;
 using Terraria;

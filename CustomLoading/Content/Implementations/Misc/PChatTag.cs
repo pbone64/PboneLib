@@ -1,6 +1,6 @@
 ﻿using PboneLib.CustomModTypes;
 
-namespace PboneLib.CustomLoading.Content.Implementations
+namespace PboneLib.CustomLoading.Content.Implementations.Misc
 {
     public abstract class PChatTag : ModChatTag, ICustomLoadable
     {

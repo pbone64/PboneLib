@@ -16,7 +16,7 @@ namespace PboneLib.CustomModTypes
         public abstract TextSnippet Parse(string text, Color baseColor = default, string options = null);
 
         public sealed override void SetupContent()
-        {
+        {   
             ChatManager_Register.MakeGenericMethod(GetType()).Invoke(null, new object[] { Names });
 
             base.SetupContent();

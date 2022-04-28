@@ -6,10 +6,9 @@ using Terraria.UI.Chat;
 
 namespace PboneLib.CustomModTypes
 {
-    public abstract class ModChatTag : ModType, ITagHandler, ICustomLoadable
+    public abstract class ModChatTag : ModType, ITagHandler
     {
         private static MethodInfo ChatManager_Register = typeof(ChatManager).GetMethod(nameof(ChatManager.Register));
-        public virtual bool LoadCondition() => true;
 
         public abstract string[] Names { get; }
 

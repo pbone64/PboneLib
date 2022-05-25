@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
@@ -17,7 +18,7 @@ namespace PboneLib.Utils
                 WorldGen.SquareTileFrame(x, y, true);
 
                 if (!mute)
-                    SoundEngine.PlaySound(SoundID.Dig, x * 16, y * 16, 1, 1f, 0f);
+                    SoundEngine.PlaySound(SoundID.Dig, new Vector2(x * 16, y * 16));
 
                 return true;
             }

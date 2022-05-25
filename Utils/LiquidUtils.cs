@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 
@@ -12,7 +13,7 @@ namespace PboneLib.Utils
 
             if (tile.LiquidAmount == 0 || tile.LiquidType == type)
             {
-                SoundEngine.PlaySound(SoundID.Splash, x, y);
+                SoundEngine.PlaySound(SoundID.Splash, new Vector2(x, y));
                 tile.LiquidType = type;
                 tile.LiquidAmount = byte.MaxValue;
                 WorldGen.SquareTileFrame(x, y);

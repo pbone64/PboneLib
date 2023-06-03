@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace PboneLib.DataStructures
 {
     public class ModTranslationCollection
     {
-        public static FieldInfo ModTranslation_translations = typeof(ModTranslation).GetField("translations", BindingFlags.Instance | BindingFlags.NonPublic);
+        public static FieldInfo ModTranslation_translations = typeof(LocalizedText).GetField("translations", BindingFlags.Instance | BindingFlags.NonPublic);
 
-        public Dictionary<string, ModTranslation> Translations;
+        public Dictionary<string, LocalizedText> Translations;
 
         public ModTranslationCollection()
         {
-            Translations = new Dictionary<string, ModTranslation>();
+            Translations = new Dictionary<string, LocalizedText>();
         }
 
-        public ModTranslation GetOrCreateTranslation(Mod mod, string key, bool add = false) => GetOrCreateTranslation("Mods." + mod.Name + "." + key, add);
-        public ModTranslation GetOrCreateTranslation(string key, bool add = false)
+        public LocalizedText GetOrCreateTranslation(Mod mod, string key, bool add = false) => GetOrCreateTranslation("Mods." + mod.Name + "." + key, add);
+        public LocalizedText GetOrCreateTranslation(string key, bool add = false)
         {
             key = key.Replace(" ", "_");
             if (Translations.TryGetValue(key, out var value))
@@ -24,7 +25,7 @@ namespace PboneLib.DataStructures
                 return value;
             }
 
-            ModTranslation translation = LocalizationLoader.CreateTranslation(key);
+            LocalizedText translation = Language.GetOrRegister(key);
 
             if (add)
                 Translations.Add(key, translation);
@@ -34,12 +35,12 @@ namespace PboneLib.DataStructures
 
         // Slow
         public void Merge(ModTranslationCollection other) => Merge(other.Translations);
-        public void Merge(IDictionary<string, ModTranslation> other)
+        public void Merge(IDictionary<string, LocalizedText> other)
         {
-            foreach (KeyValuePair<string, ModTranslation> kvp in other)
+            foreach (KeyValuePair<string, LocalizedText> kvp in other)
             {
                 // Get the translation that currently exists in this collection
-                ModTranslation translation = GetOrCreateTranslation(kvp.Key, true);
+                LocalizedText translation = GetOrCreateTranslation(kvp.Key, true);
 
                 Dictionary<int, string> newTranslations = ModTranslation_translations.GetValue(kvp.Value) as Dictionary<int, string>;
 

@@ -1,10 +1,11 @@
 ﻿using MonoMod.Utils;
-using PboneLib.CustomLoading.Localization.Parsers;
-using PboneLib.DataStructures;
+//using PboneLib.CustomLoading.Localization.Parsers;
+//using PboneLib.DataStructures;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace PboneLib.CustomLoading.Localization
@@ -15,9 +16,9 @@ namespace PboneLib.CustomLoading.Localization
         {
             public Dictionary<string, ILocalizationFileParser> ExtensionsToParsers;
 
-            public Action<ModTranslation> AddTranslationAction;
+            public Action<LocalizedText> AddTranslationAction;
 
-            public LocalizationLoaderSettings(Action<ModTranslation> addTranslationAction)
+            public LocalizationLoaderSettings(Action<LocalizedText> addTranslationAction)
             {
                 ExtensionsToParsers = new Dictionary<string, ILocalizationFileParser>();
 
@@ -26,16 +27,18 @@ namespace PboneLib.CustomLoading.Localization
 
             public void FillWithDefaultParsers()
             {
+                /*
                 ExtensionsToParsers.AddRange(new Dictionary<string, ILocalizationFileParser> {
                     ["lang"] = new LangFileParser(),
                     ["toml"] = new TomlFileParser()
                 });
+                */
             }
         }
 
         public LocalizationLoaderSettings Settings;
 
-        public CustomLocalizationLoader(Action<ModTranslation> addTranslationAction)
+        public CustomLocalizationLoader(Action<LocalizedText> addTranslationAction)
         {
             Settings = new LocalizationLoaderSettings(addTranslationAction);
             Settings.FillWithDefaultParsers();
@@ -70,7 +73,7 @@ namespace PboneLib.CustomLoading.Localization
                 }
             }
 
-            foreach (KeyValuePair<string, ModTranslation> kvp in translations.Translations)
+            foreach (KeyValuePair<string, LocalizedText> kvp in translations.Translations)
                 Settings.AddTranslationAction(kvp.Value);
         }
 

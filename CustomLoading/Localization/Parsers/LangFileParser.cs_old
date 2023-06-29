@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using TModLocalizationLoader = Terraria.ModLoader.LocalizationLoader;
 
@@ -7,10 +8,10 @@ namespace PboneLib.CustomLoading.Localization.Parsers
 {
     public class LangFileParser : ILocalizationFileParser
     {
-        public IDictionary<string, ModTranslation> ParseText(Mod mod, string culture, string text)
+        public IDictionary<string, LocalizedText> ParseText(Mod mod, string culture, string text)
         {
             using StringReader reader = new StringReader(text);
-            Dictionary<string, ModTranslation> dictionary = new Dictionary<string, ModTranslation>();
+            Dictionary<string, LocalizedText> dictionary = new Dictionary<string, LocalizedText>();
 
             // From LocalizationLoader.Autoload
             while ((text = reader.ReadLine()) != null)
@@ -28,7 +29,7 @@ namespace PboneLib.CustomLoading.Localization.Parsers
                     value = value.Replace("\\n", "\n");
                     if (!dictionary.TryGetValue(key, out var translation))
                     {
-                        translation = (dictionary[key] = TModLocalizationLoader.CreateTranslation(mod, key));
+                        translation = (dictionary[key] = Language.GetOrRegister(mod, key));
                     }
                     translation.AddTranslation(culture, value);
                 }

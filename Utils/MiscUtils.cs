@@ -19,7 +19,7 @@ namespace PboneLib.Utils
 
         public static bool BetterPlaceObject(int x, int y, int type, bool mute = false, int style = 0, int random = -1, int direction = -1)
         {
-            if (!TileObject.CanPlace(x, y, type, style, direction, out TileObject objectData, false, false))
+            if (!TileObject.CanPlace(x, y, type, style, direction, out TileObject objectData, false, null, false))
                 return false;
 
             objectData.random = random;

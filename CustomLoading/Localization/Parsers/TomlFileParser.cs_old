@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Tomlet;
 using Tomlet.Models;
@@ -8,10 +9,10 @@ namespace PboneLib.CustomLoading.Localization.Parsers
 {
     public class TomlFileParser : ILocalizationFileParser
     {
-        public IDictionary<string, ModTranslation> ParseText(Mod mod, string culture, string text)
+        public IDictionary<string, LocalizedText> ParseText(Mod mod, string culture, string text)
         {
             TomlDocument document = new TomlParser().Parse(text);
-            Dictionary<string, ModTranslation> dictionary = new Dictionary<string, ModTranslation>();
+            Dictionary<string, LocalizedText> dictionary = new Dictionary<string, LocalizedText>();
             foreach (KeyValuePair<string, TomlValue> kvp in document.Entries)
             {
                 Dictionary<string, string> values = new Dictionary<string, string>();
@@ -25,7 +26,7 @@ namespace PboneLib.CustomLoading.Localization.Parsers
 
                     if (!dictionary.TryGetValue(key, out var translation))
                     {
-                        translation = (dictionary[key] = TModLocalizationLoader.CreateTranslation(mod, key));
+                        translation = (dictionary[key] = mod.GetLocalizationKey(key).ToString());
                     }
                     translation.AddTranslation(culture, value);
                 }
